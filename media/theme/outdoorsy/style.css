@@ -1,0 +1,428 @@
+/*
+Theme Name: Outdoorsy
+Theme URI: http://wefunction.com
+Description: Free Wordpress Theme "Outdoorsy" by weFunction
+Version: 1.0
+Author: Spencer
+Author URI: http://wefunction.com
+/* --------------------------------------------- */
+
+/* 00 - GLOBAL ELEMENTS
+/* ----------------------------------------------*/
+body {
+	margin:0; padding:0;
+	width:100%; height:100%;
+	background:#2a231b url(images/background.jpg) no-repeat top center;
+	display:table;
+	font:small Tahoma, Verdana, Arial, Helvetica, sans-serif; color:#584d40; line-height:130%;
+}
+
+img {
+	border:0;
+}
+
+blockquote {
+	margin:0 auto; padding:0 0 0 20px;
+	width:85%; height:auto;
+	background:url(images/blockquote.gif) no-repeat center left;
+}
+
+code {
+	margin:0; padding:0 4px;
+	background:#efe5d7;
+}
+
+p {
+	margin:auto; padding:auto;
+}
+
+/* 01 - TYPOGRAPHY
+/* ----------------------------------------------*/
+h1 {
+	margin:76px 0 0 140px;  padding:0;
+	position:absolute;
+	font:280% Georgia, "Times New Roman", Times, serif; color:#513414;
+}
+
+h2 {
+	margin:0; padding:0;
+	font:230% Georgia, "Times New Roman", Times, serif; color:#513414;
+}
+
+h3 {
+	margin:20px 0 10px 0; padding:0;
+	font:190% Georgia, "Times New Roman", Times, serif; color:#362f2c;
+}
+
+h4 {
+	margin:10px 0; padding:0;
+	font:115% Tahoma, Verdana, Arial, Helvetica, sans-serif; color:#362f2c;
+}
+
+h5 {
+	margin:10px 0; padding:0;
+	font:180% Tahoma, Verdana, Arial, Helvetica, sans-serif; color:#362f2c;
+}
+
+a:link {
+	color:#465919; font-weight:bold;
+	text-decoration:none;
+}
+
+	h1 a:link, h1 a:active, h1 a:visited {
+		font:100% Georgia, "Times New Roman", Times, serif; color:#513414;
+		text-decoration:none;
+	}
+
+	h2 a:link, h2 a:active, h2 a:visited {
+		font:normal 100% Georgia, "Times New Roman", Times, serif; color:#513414;
+		text-decoration:none;
+	}
+	
+	h3 a:link, h3 a:active, h3 a:visited {
+		font:normal 100% Georgia, "Times New Roman", Times, serif; color:#362f2c;
+		text-decoration:none;
+	}
+	
+	h4 a:link, h4 a:active, h4 a:visited {
+		font:normal 100% Tahoma, Verdana, Arial, Helvetica, sans-serif; color:#362f2c;
+		text-decoration:none;
+	}
+	
+	h5 a:link, h5 a:link, h5 a:active, h5 a:visited {
+		margin:10px 0; padding:0;
+		font:normal 100% Tahoma, Verdana, Arial, Helvetica, sans-serif; color:#485b19;
+	}
+
+	#header ul li a {
+		font:90% Georgia, "Times New Roman", Times, serif; color:#433b33;
+		text-decoration:none; text-transform:lowercase;
+	}
+	
+	.post-meta a:link, .post-meta a:active, .post-meta a:visited {
+		font:normal 100% Georgia, "Times New Roman", Times, serif; color:#485b19;
+		text-decoration:none;
+	}
+	
+	.post-footer a {
+		font:bold 85% Tahoma, Verdana, Arial, Helvetica, sans-serif; color:#485b19;
+		text-decoration:none;
+	}
+	
+	#sidebar a {
+		margin:0; padding:0 10px 0 0;
+		font:90% Georgia, "Times New Roman", Times, serif; color:#70635a;
+		line-height:160%; text-decoration:none;
+		background:url(images/bullet.gif) no-repeat center right;
+	}
+	
+	#sidebar li ul li ul li a {
+		font-style:italic;
+		background:none;
+	}
+	
+	.function {
+		font-size:85%;
+	}
+	
+	.function a:link, .function a:active, .function a:visited {
+		margin:0; padding:0;
+		font:100% Georgia, "Times New Roman", Times, serif; color:#5a4e40;
+		text-decoration:none;
+	}
+	
+	.foot ul a:link, .foot ul a:active, .foot ul a:visited {
+		font:90% Georgia, "Times New Roman", Times, serif; color:#3b3125;
+		text-decoration:none;
+	}
+
+a:visited {
+	color:#798758; font-weight:bold;
+	text-decoration:none;
+}
+
+a:active {
+	color:#050505;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+	h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover {
+		text-decoration:underline;
+	}
+
+	#header ul li a:hover {
+		color:#945713; text-decoration:underline;
+	}
+	
+	#sidebar a:hover {
+		margin:0; padding:0 10px 0 0;
+		font:90% Georgia, "Times New Roman", Times, serif; color:#485b19;
+		line-height:160%; text-decoration:underline;
+		background:url(images/bullet-hover.gif) no-repeat center right;
+	}
+	
+	#sidebar li ul li ul li a:hover {
+		background:none;
+		font-style:italic;
+	}
+	
+	.foot ul a:hover, .function a:hover, .post-meta a:hover {
+		text-decoration:underline;
+	}
+
+p {
+	font-size:100%;
+}
+
+ul, ol {
+	font-size:100%;
+}
+
+.post-meta {
+	font:85% Arial, Helvetica, sans-serif; color:#584d40;
+}
+
+.comment-meta {
+	margin:0px 0 0 0;
+	font:italic 85% Arial, Helvetica, sans-serif; color:#584d40;
+	float:right;
+}
+
+#sidebar {
+	margin:0; padding:0;
+	font-family:Georgia, "Times New Roman", Times, serif; color:#70635a;
+}
+
+.copyright {
+	font:80% Verdana, Arial, Helvetica, sans-serif; color:#5a4e40;
+}
+
+.input, .submit {
+	font:90% Georgia, "Times New Roman", Times, serif; color:#af9f85;
+}
+
+	.submit {
+		color:#89785f; font-weight:bold;
+	}
+
+/* 02 - STRUCTURE
+/* ----------------------------------------------*/
+#container {
+	margin:0 auto;
+	width:950px; height:auto; min-height:800px;
+}
+
+#header {
+	width:auto; height:172px;
+	display:block;
+}
+
+#content-top {
+	margin:0 auto; padding:0;
+	width:950px; height:auto;
+	background:url(images/content-top.jpg) no-repeat top right;
+}
+
+#content {
+	margin:0 auto; padding:0;
+	width:950px; height:auto; 
+	background:url(images/content-back.jpg) repeat-y right top;
+}
+
+	#content-container {
+		margin:0 auto; padding:42px 0 0 0;
+		width:742px; height:auto;
+		overflow:hidden;
+	}
+	
+/* 03 - HEADER
+/* ----------------------------------------------*/
+#header ul {
+	margin:116px 0 0 130px; padding:0;
+	list-style:none;
+	position:absolute;
+}
+
+	#header ul li {
+		margin:0 0 0 10px;
+		float:left; display:inline;
+	}
+	
+/* 04 - CONTENT
+/* ----------------------------------------------*/
+#leftcol {
+	margin:0; padding:0;
+	width:500px; height:auto;
+	float:left;
+}
+
+	.post-meta {
+		padding:12px 0 0 0; margin:0;
+		display:block;
+	}
+	
+	.post p {
+		margin:10px 0; padding:0;
+	}
+	
+	#commentlist {
+		margin:0; padding:0;
+		list-style:none;
+	}
+	
+		#commentlist li {
+			margin:20px 0 0 0; padding:0 0 20px 0;
+			background:url(images/comment-divider.gif) no-repeat bottom center;
+			overflow:hidden;
+		}
+		
+			#commentlist li ul li, #commentlist li ol li {
+				margin:0; padding:2px 0;
+				background:none;
+				list-style:inside;
+			}
+		
+	.about-post {
+		margin:-12px 0; padding:10px;
+		font-size:85%; color:#716a5d;
+	}
+
+#rightcol {
+	margin:0; padding:0;
+	width:195px; height:auto;
+	float:right;
+}
+
+/* 05 - SIDEBAR
+/* ----------------------------------------------*/
+#sidebar {
+	margin:-30px 0 0 0; padding:0;
+	list-style:none;
+}
+
+#sidebar li ul {
+	margin:0; padding:0;
+	list-style:none;
+}
+
+	#sidebar li {
+		margin:30px 0 0 0;
+	}
+	
+		#sidebar li ul li {
+			margin:0;
+		}
+		
+			#sidebar li ul li ul li {
+				margin:0 0 0 10px;
+			}
+
+		
+/* 06 - FORMS
+/* ----------------------------------------------*/
+
+.comment {
+	overflow:hidden;
+}
+
+	* html .comment {
+		height:1px;
+		overflow:visible;
+	}
+
+.comment-info {
+	float:left;
+}
+
+	.comment-info input {
+		width:120px;
+		margin:0 0 12px 0;
+	}
+
+.comment-comment {
+	float:right;
+}
+
+	.comment-comment textarea {
+		width:331px; height:120px;
+		float:right;
+	}
+	
+	.submit {
+		clear:both;
+		margin:0; padding:4px 5px;
+		background:#fffdf3 url(images/submit.gif) repeat-x;
+		border:1px solid #e8cba9;
+		display:block;
+	}
+
+.input {
+	margin:0; padding:5px;
+	background:#fffdf3;
+	border:1px solid #e8cba9;
+	display:block;
+}
+
+/* 07 - FOOTER
+/* ----------------------------------------------*/
+#footer {
+	margin:35px 0 0 0;
+	width:950px; height:233px;
+	background:url(images/footer.jpg) no-repeat top center;
+	overflow:hidden;
+}
+
+	.function {
+		margin:93px 0 0 150px; padding:0;
+		width:150px; height:auto;
+		float:left; display:inline;
+	}
+	
+	.foot {
+		float:right;
+	}
+	
+		.foot ul {
+			margin:78px 0 12px 0; padding:0;
+			width:615px;
+			list-style:none;
+		}
+		
+			.foot ul li {
+				margin:0; padding:0 10px;
+				display:inline;
+				border-left:1px solid #9b897a;
+			}
+			
+				.foot ul li.first {
+					margin:0; padding:0 7px 0 0;
+					border:0;
+				}
+			
+	.copyright {
+		position:relative;
+		display:block;
+	}
+	
+/* 00 - MISC
+/* ----------------------------------------------*/
+.divider {
+	margin:12px 0; padding:0;
+	width:499px; height:3px;
+	background:url(images/divider.gif) no-repeat top center;
+}
+
+.clear {
+	clear:both;
+}
+
+.left {
+	float:left;
+}
+
+.right {
+	float:right;
+}

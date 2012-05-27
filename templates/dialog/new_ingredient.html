@@ -1,0 +1,48 @@
+{% load i18n %}
+{% block page_meta %}{{ form.media|safe }}{% endblock %}
+{% block content %}
+<div>
+<form enctype="multipart/form-data" method="post">
+<table>
+<tr>
+   <th class="th-left">{{ form.name.label_tag }} : <br><div class="helptext">{{ form.name.help_text }}</div></th>
+   <td colspan="3">
+    {% if form.name.errors %}<ul class="errorlist">{{ form.name.errors }}</ul>{% endif %}
+    {{ form.name }}
+    {% if form.name.field.required %}require<img src="{{ MEDIA_URL }}images/required.png" alt="Required" width="8" height="8" />{% endif %}
+   </td>
+  </tr>
+<tr>
+<tr>
+   <th class="th-left">{{ form.measure.label_tag }} : <br><div class="helptext">{{ form.measure.help_text }}</div></th>
+   <td colspan="3">
+    {% if form.measure.errors %}<ul class="errorlist">{{ form.measure.errors }}</ul>{% endif %}
+    {{ form.measure }}
+    {% if form.measure.field.required %}require<img src="{{ MEDIA_URL }}images/required.png" alt="Required" width="8" height="8" />{% endif %}
+   </td>
+  </tr>
+<tr>
+<tr>
+   <th class="th-left">{{ form.category.label_tag }} : <br><div class="helptext">{{ form.category.help_text }}</div></th>
+   <td colspan="3">
+    {% if form.category.errors %}<ul class="errorlist">{{ form.category.errors }}</ul>{% endif %}
+    {{ form.category }}
+    {% if form.category.field.required %}require<img src="{{ MEDIA_URL }}images/required.png" alt="Required" width="8" height="8" />{% endif %}
+   </td>
+  </tr>
+<tr>
+<tr>
+   <th class="th-left">{{ form.full_photo.label_tag }} : <br><div class="helptext">{{ form.full_photo.help_text }}</div></th>
+   <td colspan="3">
+    {% if form.full_photo.errors %}<ul class="errorlist">{{ form.full_photo.errors }}</ul>{% endif %}
+    {{ form.full_photo }}
+    {% if form.full_photo.field.required %}require<img src="{{ MEDIA_URL }}images/required.png" alt="Required" width="8" height="8" />{% endif %}
+   </td>
+  </tr>
+<tr>
+</table>
+    <a class="button" style="margin-top: 0px; width: 200px;" href="">Test it</a>
+  <input type="submit" class="submit" value="{% if create %}Create{% else %}Update{% endif %}" />
+</form>
+</div>
+{% endblock %}

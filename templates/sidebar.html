@@ -1,0 +1,22 @@
+{% load i18n tagging_tags %}
+<div id="sidebar">
+<ul><h2>Login</h2>
+    <li>
+        <ul>
+        <div id="aboutimage"></div>
+        <div id="abouttxt">
+        {% trans "Welcome," %} {% if authorised %}{{ user.first_name|default:user }}<br><a href="{% url n_logout %}">{% trans "Logout" %}</a>{% else %}{% trans "Guest" %}<br><a href="{% url n_login %}?next_page='/'">{% trans "Login" %}</a>{% endif %}<br>
+        <a href="{% url recipedia.views.create %}">{% trans "Post" %} <img alt="{% trans "Free Post" %}" src="{{ MEDIA_URL }}images/free-icon.png"></a><br>
+        </div>
+        </ul>
+    </li>
+    <h2>Search Site</h2><li><ul>
+    <li><a href="{% url recipedia.forms.add_ingredient %}">{% trans "Home" %}</a></li>
+    {% if authorised %}<li><a href="{% url recipedia.views.mine %}">{% trans "My Recipes" %}</a></li>{% endif %}
+    </ul></li>
+    {% tags_for_model recipedia.recipe as widget_tags with counts %}
+    <h2>Tag</h2><li><ul>
+    {% for item in widget_tags %}<li><a href="{% url tag_search %}?n={{ item.name|iriencode }}">{{ item.name }}</a> {{ item.count }}</li>{% endfor %}
+    </ul></li>
+</ul>
+</div>

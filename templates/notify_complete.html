@@ -1,0 +1,12 @@
+{% extends "basepage.html" %}
+{% load i18n %}
+{% comment %}
+  $Id$
+{% endcomment %}
+
+{% block content %}
+<h1>{% ifequal type 1001 %}<img src="/media/images/1.png" alt="{% trans "Thank you" %}" /> {% trans "Thank you" %}!{% endifequal %}{% ifequal type 1021 %}<img src="/media/images/21.png" alt="Warning" /> Warning!{% endifequal %}{% ifequal type 1031 %}<img src="/media/images/23.png" alt="{% trans "Error" %}" /> {% trans "Error" %}!{% endifequal %}</h1>
+<p>{{ content|safe }}</p>
+<p><a href="{{ HOME_URL }}">{% trans "Go to Ad listing" %}</a></p>
+<p>-- The {{ site.name }} Team</p>
+{% endblock %}

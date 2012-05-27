@@ -1,0 +1,10 @@
+{% extends base_template %}
+{% load i18n %}
+{% block title %}{{ site.name }} | Sign-in{% endblock %}
+{% block content %}
+  <form method="post">
+  <table>{{ form.as_table }}</table>
+  <p><input type="button" class="cancel" value="{% trans "Cancel" %}" /> <input type="submit" class="submit" value="{% trans "Submit" %}" /></p>
+  </form>
+<script type="text/javascript">document.getElementById("id_username").focus();</script>
+{% endblock %}

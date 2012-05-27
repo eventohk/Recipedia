@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw" > 
+<head profile="http://gmpg.org/xfn/11">
+  <meta http-equiv="content-type" content="multipart/alternative; charset=utf-8">
+  <meta name="keywords" content="{% block page_keywords %}{% endblock %}">
+  <link type="text/css" rel="stylesheet" media="all" href="{{ MEDIA_URL }}theme/citrus-mix/style.css" />
+  {% block page_meta %}{% endblock %}
+  {% block page_style %}{% endblock %}
+  <title>{% block title %}{% endblock %}</title>
+  {% block head_script %}{% endblock %}
+</head>
+{% block custom_bodytag %}<body>{% endblock %}
+{% block content %}{% endblock %}
+</body>
+</html>

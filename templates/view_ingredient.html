@@ -1,0 +1,22 @@
+{% extends "basepage.html" %}
+{% load i18n %}
+{% block title %}View Ingredient Test{% endblock %}
+{% block content %}
+<div id="entry">
+<table border="1">
+<tr>
+    <td>{{ form.name }}</td>
+    <td>{{ form.category }}</td>
+    <td rowspan="2">{{ form.full_photo }}</td>
+</tr>
+{% if form.thumb_photo %}
+<tr>
+    <td>{{ form.thumb_photo }}</td>
+</tr>
+{% endif %}
+</table>
+<form method="get">
+    <input type="submit" class="submit" value="{% if create %}Create{% else %}Update{% endif %}" />
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "basepage.html" %}
+{% load i18n %}
+{% block title %}View Your Recipe{% endblock %}
+{% block content %}
+<div id="header"><div id="headerimg">
+<div id="headertxt"><h1>Recipedia</h1>
+<div id="desc">description</div>
+</div></div></div>
+<div id="page">
+<div id="content" class="widecolumn">
+<div class="postpages">
+    <h2>{{ recipe.name }}</h2>
+    {% if recipe.thumb_photo %}<img src="{{ recipe.thumb_photo.url }}" alt="{{ recipe.name }}" width="{{ recipe.thumb_photo.width }}" height="{{ recipe.thumb_photo.height }}" /><br>{% endif %}
+<div class="entry"> 
+<h3 class="alt">Your Recipe Needs</h3>
+<ol>
+    {% for form in ingrds %}
+    <li>{{ form.ingredient.name}} {{ form.quantity|floatformat:"-2" }} {{ form.measure }}</li>
+    {% endfor %}
+</ol>
+{% if mthds %}
+<ul>{{ mthds.as_list }}</ul>
+{% else %}<h4>no process needed</h4>
+{% endif %}
+          
+<form method="post">{% csrf_token %}
+<input type="submit" href="{% url recipedia.views.create_edit recipe.id %}" value="Edit it!" />
+    <a class="button" href="{% url recipedia.views.create_edit recipe.id %}">Edit it</a>
+</form></div></div></div>{% include "sidebar.html" %}{% include "footer.html" %}
+</div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "basepage.html" %}
+{% load i18n humanize customtag %}
+{% block title %}{% trans "Welcome to " %}{{ site }}{% endblock %}
+{% block head_script %}
+    <script type="text/javascript" src="/scrp/jquery.js"></script>
+    <script type="text/javascript" src="/scrp/jquery-ui.js"></script>
+    <link type="text/css" href="{{ MEDIA_URL }}theme/ui-lightness/ui-lightness.css" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+<script type="text/javascript" language="javascript">
+	$(function() {
+        //  setup dialog based on returned html content
+        function setDialog(target, dlg) {
+            var buttons = [];
+            var login_url = "{% url django.contrib.auth.views.login %}?next=";
+            var dst_url = "{% url add_ingredient_dlg %}";
+            dlg.dialog( "option", "buttons", buttons ); //reset all buttons first
+            if (target.find("input#id_username").length > 0) {
+                dlg.dialog( "option", "title", "{% trans "User Login" %}");
+                buttons.push({
+                    text: "{% trans "login" %}",
+                    click: function() {
+                        var data = target.find("form").serialize();
+                        $.post(login_url + dst_url, data, function(data) {
+                            target.html(data);
+                            setDialog(target, dlg);
+                            });
+                    }
+                });
+            }
+            else if (target.find("input#id_measure").length > 0) {
+                dlg.dialog( "option", "title", "{% trans "Create Ingredient" %}");
+                buttons.push(
+                    {
+                        text: "{% trans "Create" %}",
+                        click: function() {
+                            var data = target.find("form").serialize();
+                            $.post(dst_url, data, function(data) {
+                                target.html(data);
+                                setDialog(target, dlg);
+                                });
+                        }
+                    });
+            };
+            buttons.push(
+                {
+                    text: "{% trans "Cancel" %}",
+                    click: function() { dlg.dialog("close");} //; target.html("");}
+                }
+            );
+            var dia = [dlg.dialog("option", "height"), dlg.dialog("option", "width")];
+            dlg.dialog( "option", "buttons", buttons);
+        };
+        var dlg_param =
+        // common configuration here
+		{
+			autoOpen: false,
+			height: 300,
+			width: 350,
+			modal: true,
+            close: function(event, ui) { $("#dialog-form").html(""); }
+		};
+        var dlg = $("#dialog-form").dialog(dlg_param);
+		$( "#create-user" )
+			.button()
+			.click(function() {
+                $("#dialog-form").load("{% url add_ingredient_dlg %}",
+                function(e, xhr, settings) {
+                    setDialog($("#dialog-form"), dlg);
+                    dlg.dialog( "open" );
+                });
+
+			});
+	});
+</script>
+<div id="header"><div id="headerimg"><div id="headertxt"><h1>Recipedia</h1>
+<div id="desc">description</div>
+</div></div></div><div id="page">
+<div id="content" class="narrowcolumn">
+    {% with page.object_list as rp %}
+    {% if rp %}<h2>{% trans "Latest Listings" %}</h2>{% for item in rp %}
+        <div class="post">
+          <div class="postindent">
+            <h2>
+              {% if item.thumb_photo %}<img class="alignleft" src="{{ item.thumb_photo.url }}" alt="{{ item.name }}" width="{{ item.thumb_photo.width }}" height="{{ item.thumb_photo.height }}" />{% endif %}<a href="{% url recipedia.views.view item.id %}">{{ item.name }}</a>
+            </h2><div class="clear"></div>
+            <div class="entry">
+              <p>
+                Boat.<p><a href="{% url recipedia.views.view item.id %}">{% trans "Read more..." %}</a>
+              </p>{% if ismanage %}<table class="alt"><tr><td width="40px"><a href="{% url recipedia.views.create_edit item.id %}"><b class="pink">{% trans "Edit" %}</b></a></td><td><a href="{% url recipedia.views.delete item.id %}"><b class="pink">{% trans "Delete" %}</b></a></td></tr></table>{% endif %}
+            </div>
+            <div class="categorylink">{% trans "Category:" %} {% if item.tag %}{% for i in item.tag|split:"," %}<a href="{% url tag_search %}?n={{ i|iriencode }}">{{ i }}</a>{%if not forloop.last %}, {% endif %}{% endfor %}{% else %}{% trans "Uncategorized" %}{% endif %}</div>
+            <div class="postmetadata">
+              <div class="category">
+                {{ item.createat|timesince }} <!-- by Theme Admin -->
+              </div>
+              <div class="comments">
+                <span class="comments-link">{% trans "Recomment" %} {{ item.rating.rategoodcount|default:"0" }}</span>
+              </div>
+            </div>
+          </div>
+        </div>{% endfor %}
+            {% else %}<p>{% trans "There is no any hit found. Post yours " %}<a href="">{% trans "here!" %}</a>.
+            {% endif %}{% endwith %}
+        {% if pagelist %}<p><table style="margin-left: 40px;"><tr>
+        {% if page.has_previous %}<td width="10"><a href="{% url recipedia.views.index %}?sort={{ sort }};order={{ order }};page={{ page.previous_page_number }}">{% trans "Previous" %}</a></td>{% endif %}
+        {% for i in pagelist %}<td width="20">{% if i != pagenum %}
+            <a href="{% url recipedia.views.index %}?sort={{ sort }};order={{ order }};page={{ i }}">{{ i }}</a>
+            {% else %}{{ i }}{% endif %}</td>{% endfor %}
+        {% if page.has_next %}<td width="10"><a href="{% url recipedia.views.index %}?sort={{ sort }};order={{ order }};page={{ page.next_page_number }}">{% trans "Next" %}</a></td>{% endif %}</tr></table></p>{% endif %}            
+        <button id="create-user">{% trans "Create Ingredient" %}</button>
+        <div id="rightcol"></div>
+</div>{% include "sidebar.html" %}{% include "footer.html" %}
+</div>        <div id="dialog-form"></div>
+
+{% endblock %}

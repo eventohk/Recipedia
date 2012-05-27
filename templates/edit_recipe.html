@@ -1,0 +1,212 @@
+{% extends "basepage.html" %}
+{% load i18n %}
+{% block page_meta %}{{ grpmedia|safe }}
+<style type="text/css">
+.selected_ingredient {background: #FFA0A0; margin: 0.2em; padding-left: 0.3em;}
+.item-added {display: none;}
+.extruder.right .text {
+  background: url("/scrp/elements/red_op_50.png");
+}
+.extruder.right .content {
+  background: url("/scrp/elements/red_op_50.png");
+}
+
+</style>
+<script type="text/javascript">
+    $(function(){
+//        var vtop = 0;
+        $(".MbExtruder").each(function() {
+            $(this).buildMbExtruder({
+                position:"right",
+                width:300,
+                positionFixed:false,
+//                top:vtop,
+                extruderOpacity:.6,
+                onExtOpen:function(){},
+                onExtContentLoad:function(){},
+                onExtClose:function(){}
+            });
+//            vtop += 80;
+        });
+    });
+</script>
+<script type="text/javascript">
+var para = {helper: 'clone',opacity: 0.35,cancel:'.item-added'};
+var itemcount = 0;
+var itemfilled = 0;
+$(document).ready(function(){
+    $(function() {
+        $("#selected_item").selectable();
+    });
+    $(".ingredient").draggable(para);
+    $("input[id$='ingrdname']").droppable({
+        activeClass: 'ui-selected',
+        hoverClass: 'ui-state-hover',
+        drop: function(event, ui) {
+            var name = ui.draggable.text();
+            var val = ui.draggable.attr('value');
+            var v1 = this.id.replace("ingrdname","ingredient");
+            var v2 = this.id.replace("ingrdname","measure");
+//               $( "<li></li>" ).text( name ).appendTo( this );
+//            $("#selected_item > li").addClass('selected_ingredient');
+            ui.draggable.addClass('item-added');
+            $(".ui-draggable-dragging").remove();
+            // alert(this.id + " : " + v1 + " : " + val);
+            this.value = name;
+//            alert(v1 + "/n"+ v2);
+            $("#" + v1).attr('value', val);
+            $("#" + v2).attr('value', ui.draggable.attr('data'));
+            itemcount = $('input[id$="ingredient"][value]').length;
+//            ++itemcount;
+            $('#selected_item > span').text(itemcount + ' item(s) added');
+        }
+    });
+    $(function() {
+        $("#revert_selected_item").click(
+            function() {
+                $("#selected_item > li.ui-selected").each(
+                function() {
+                    var ing = $(this).text();
+                    $( "#vegetable > li:contains('" + ing + "')").removeClass('item-added');
+                    $( "#meat > li:contains('" + ing + "')").removeClass('item-added');
+                    $(this).remove();
+                    $("#selected_item > span").text($('#selected_item > .selected_ingredient').length.toString() + ' item(s) added');
+                });
+                return false;
+        });
+    });
+//    itemcount = Number($('input[id$="-INITIAL_FORMS"]')[0].getAttribute('value'));
+    if ($('input[id$="ingredient"][value]').length) {
+       $("#selected_item > span").text($('input[id$="ingredient"][value]').length.toString() + ' item(s) added')};
+    $(function() {
+        $('input[id$="ingredient"][value]').each(
+            function() {
+                    var sou = $("li.ingredient[value=" + $(this).attr('value') + "]");
+                    sou.addClass('item-added');
+                    var dst = $('input[id=' + this.id.replace("-ingredient", "-ingrdname") + ']');
+                    if (dst.attr('value') == "") {dst.attr('value', sou.text());}
+                });
+        });
+    });
+</script>
+{% endblock %}
+{% block title %}Edit Recipe{% endblock %}
+{% block content %}
+<div id="header"><div id="headerimg"><div id="headertxt"><h1>Recipedia</h1>
+<div id="desc">description</div>
+</div></div></div>
+<div id="page">
+<div id="content" class="widecolumn"><div class="postpages">
+<div class="entry"><h2 class="pagetitle">{% trans "Step 2: Compose your recipe" %}</h2>
+    
+    <h3>{{ recipe.name }}</h3>
+    {% if recipe.thumb_photo %}<img src="{{ recipe.thumb_photo.url }}" alt="{{ recipe.name }}" width="{{ recipe.thumb_photo.width }}" height="{{ recipe.thumb_photo.height }}" />{% endif %}
+<hr width="2">
+{# <h2 id="counter"></h2> #}
+<h4>{% trans "Choose Your Ingredient" %}</h4><h4>{% trans "You can pick an ingredient on left and drop on the list or " %}<a id="create-ingrd" href="#">{% trans "create yours." %}</a></h4>
+{# <div>{{ ingrds.prefix }} {{ ingrds.initial_form_count}}</div> #}
+<form method="post">{% csrf_token %}
+{{ ingrds.management_form }}
+<ul id='selected_item'><span>Selected Item</span></ul>
+<input id='revert_selected_item' type="submit" value="Delete Selection">
+<ol class="alt">{% if ingrds.forms.errors %}{{ ingrds.forms.errors }}{% endif %}
+    {% for form in ingrds.forms %}
+    <li>{% if form.errors %}{{ form.errors }}<br>{% endif %}
+    {% if form.ingrdname.errors %}{{ form.ingrdname.label_tag }}{{ form.ingrdname.errors }}<br>{% endif %}
+    {% if form.quantity.errors %}{{ form.quantity.label_tag }}{{ form.quantity.errors }}<br>{% endif %}
+    {% if form.measure.errors %}{{ form.measure.label_tag }}{{ form.measure.errors }}<br>{% endif %}
+    {{ form.id }}{{ form.recipe }}{{ form.ingredient}}
+    {{ form.ingrdname.label_tag }} : {{ form.ingrdname }} {{ form.quantity.label_tag }} {{ form.quantity }} {{ form.measure }} {{ form.DELETE }}</li>
+    {% endfor %}
+</ol>
+<p>{{ mthds.management_form }}
+<table style="margin-left:3.5em;">
+<tr><th>{% trans "Cooking Directions" %}</th><th>{% trans "Delete" %}</th></tr>    
+{% if form.errors %}<tr colspan="2"><td>{{ form.errors }}</td></tr>{% endif %}{% for form in mthds.forms %}
+<tr><td>{% if form.cookmethod.errors %}{{ form.cookmethod.errors }}<br>{% endif %}{{ form.cookmethod }}</td><td>{{ form.DELETE }}</td></tr>
+{% endfor %}
+</table></p>
+<input type="submit" value="Post it!">
+    <a class="button" style="margin-top: 0px; width: 200px;" href="">Test it</a>
+</div>
+</form>
+</div></div>
+{% include "footer.html" %}</div>
+<span class="ui-helper-clearfix">{% regroup ingrdlist1 by category as ingrd_list %}
+{% for category in ingrd_list %}
+<div id="extruderLeft2" class="{title:'{{ category.grouper|make_list|join:" "  }}'} MbExtruder" >
+    <ul id='{{ category.grouper }}'>
+        {% for item in category.list %}
+        <li class="ingredient" value="{{ item.id }}" data="{{ item.measure }}">{{ item.name }}</li>
+        {% endfor %}
+    </ul>
+</div></span>
+{% endfor %}
+<script type="text/javascript" language="javascript">
+	$(function() {
+        //  setup dialog based on returned html content
+        function setDialog(target, dlg) {
+            var buttons = [];
+            var login_url = "{% url django.contrib.auth.views.login %}?next=";
+            var dst_url = "{% url add_ingredient_dlg %}";
+            dlg.dialog( "option", "buttons", buttons ); //reset all buttons first
+            if (target.find("input#id_username").length > 0) {
+                dlg.dialog( "option", "title", "{% trans "User Login" %}");
+                buttons.push({
+                    text: "{% trans "login" %}",
+                    click: function() {
+                        var data = target.find("form").serialize();
+                        $.post(login_url + dst_url, data, function(data) {
+                            target.html(data);
+                            setDialog(target, dlg);
+                            });
+                    }
+                });
+            }
+            else if (target.find("input#id_measure").length > 0) {
+                dlg.dialog( "option", "title", "{% trans "Create Ingredient" %}");
+                buttons.push(
+                    {
+                        text: "{% trans "Create" %}",
+                        click: function() {
+                            var data = target.find("form").serialize();
+                            $.post(dst_url, data, function(data) {
+                                target.html(data);
+                                setDialog(target, dlg);
+                                });
+                        }
+                    });
+            };
+            buttons.push(
+                {
+                    text: "{% trans "Cancel" %}",
+                    click: function() { dlg.dialog("close");} //; target.html("");}
+                }
+            );
+            var dia = [dlg.dialog("option", "height"), dlg.dialog("option", "width")];
+            dlg.dialog( "option", "buttons", buttons);
+        };
+        var dlg_param =
+        // common configuration here
+		{
+			autoOpen: false,
+			height: 300,
+			width: 350,
+			modal: true,
+            close: function(event, ui) { $("#dialog-form").html(""); }
+		};
+        var dlg = $("#dialog-form").dialog(dlg_param);
+		$( "#create-ingrd" )
+//			.button()
+			.click(function() {
+                $("#dialog-form").load("{% url add_ingredient_dlg %}",
+                function(e, xhr, settings) {
+                    setDialog($("#dialog-form"), dlg);
+                    dlg.dialog( "open" );
+                });
+                return false;
+			});
+	});
+</script>
+<div id="dialog-form"></div>
+{% endblock %}
